@@ -5,7 +5,10 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from 'react-native';
+
+import TodoList from './TodoList';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function App() {
@@ -14,6 +17,8 @@ export default function App() {
 
   const addTodo = () => {
     if (value.length > 0) {
+      console.log('hey');
+      console.log(todos);
       setTodos([...todos, { text: value, key: Date.now(), checked: false }]);
       setValue('');
     }
@@ -28,11 +33,18 @@ export default function App() {
           multiline={true}
           placeholder="What do you want to do today?"
           placeholderTextColor="#abbabb"
+          value={value}
+          onChangeText={(value) => setValue(value)}
         />
         <TouchableOpacity onPress={() => addTodo()}>
           <Icon name="plus" size={30} color="blue" style={{ marginLeft: 15 }} />
         </TouchableOpacity>
       </View>
+      <ScrollView style={{ width: '100%' }}>
+        {todos.map((item) => (
+          <TodoList text={item.text} key={item.key} />
+        ))}
+      </ScrollView>
     </View>
   );
 }
