@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,16 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function App() {
+  const [value, setValue] = useState('');
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = () => {
+    if (value.length > 0) {
+      setTodos([...todos, { text: value, key: Date.now(), checked: false }]);
+      setValue('');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Todo List</Text>
@@ -19,7 +29,7 @@ export default function App() {
           placeholder="What do you want to do today?"
           placeholderTextColor="#abbabb"
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => addTodo()}>
           <Icon name="plus" size={30} color="blue" style={{ marginLeft: 15 }} />
         </TouchableOpacity>
       </View>
