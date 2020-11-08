@@ -6,18 +6,22 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Todo List</Text>
-      <View style={StyleSheet.textInputContainer}>
+      <View style={styles.textInputContainer}>
         <TextInput
           style={styles.textInput}
           multiline={true}
           placeholder="What do you want to do today?"
           placeholderTextColor="#abbabb"
         />
+        <TouchableOpacity>
+          <Icon name="plus" size={30} color="blue" style={{ marginLeft: 15 }} />
+        </TouchableOpacity>
       </View>
     </View>
   );
