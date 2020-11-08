@@ -17,11 +17,27 @@ export default function App() {
 
   const addTodo = () => {
     if (value.length > 0) {
-      console.log('hey');
       console.log(todos);
       setTodos([...todos, { text: value, key: Date.now(), checked: false }]);
       setValue('');
     }
+  };
+
+  const checkTodo = (id) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.key === id) todo.checked = !todo.checked;
+        return todo;
+      })
+    );
+  };
+
+  const deleteTodo = (id) => {
+    setTodos(
+      todos.filter((todo) => {
+        if (todo.key !== id) return true;
+      })
+    );
   };
 
   return (
@@ -42,7 +58,13 @@ export default function App() {
       </View>
       <ScrollView style={{ width: '100%' }}>
         {todos.map((item) => (
-          <TodoList text={item.text} key={item.key} />
+          <TodoList
+            text={item.text}
+            key={item.key}
+            checked={item.checked}
+            setChecked={() => checkTodo(item.key)}
+            deleteTodo={() => deleteTodo(item.key)}
+          />
         ))}
       </ScrollView>
     </View>
